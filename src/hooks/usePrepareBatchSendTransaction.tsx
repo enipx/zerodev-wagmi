@@ -53,7 +53,7 @@ function queryKey({
         cacheTime,
         enabled = true,
         scopeKey,
-        staleTime = 1_000 * 60 * 60 * 24, // 24 hours
+        staleTime = 1000 * 60 * 60 * 24,
         suspense,
         onError,
         onSettled,
@@ -62,7 +62,7 @@ function queryKey({
     const { chain: activeChain } = useNetwork()
     const { data: signer } = useSigner<ZeroDevSigner>({ chainId })
 
-    const prepareSendTransactionQuery = useQuery(
+    const prepareBatchSendTransactionQuery = useQuery(
         queryKey({
             activeChainId: activeChain?.id,
             chainId,
@@ -81,11 +81,11 @@ function queryKey({
             onSuccess,
         },
     )
-    return Object.assign(prepareSendTransactionQuery, {
+    return Object.assign(prepareBatchSendTransactionQuery, {
         config: {
           request: undefined,
           mode: 'prepared',
-          ...prepareSendTransactionQuery.data,
+          ...prepareBatchSendTransactionQuery.data,
         } as PrepareBatchSendTransactionResult,
     })
 }
