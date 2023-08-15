@@ -1,3 +1,5 @@
+'use-client';
+
 import { AccountParams, ZeroDevConnector } from "./ZeroDevConnector";
 import { ZeroDevWeb3AuthWithModal, ZeroDevWeb3AuthInitOptions, ZeroDevWeb3AuthOptions } from '@zerodevapp/web3auth'
 import { getRPCProviderOwner } from '@zerodevapp/sdk';
@@ -25,16 +27,16 @@ export abstract class SocialWalletConnector extends ZeroDevConnector<SocialWalle
                 })
                 const web3AuthInitOptions: ZeroDevWeb3AuthInitOptions = {}
                 if (
-                    getClient().storage?.getItem(`${this.loginProvider}-connecting`)
+                    getClient?.()?.storage?.getItem(`${this.loginProvider}-connecting`)
                     ||
-                    (options.shimDisconnect && getClient().storage?.getItem(this.shimDisconnectKey))
+                    (options.shimDisconnect && getClient?.()?.storage?.getItem(this.shimDisconnectKey))
                 ) {
                     web3AuthInitOptions['onConnect'] = async (userInfo: any) => {
                         if (this.loginProvider === userInfo.typeOfLogin)  {
                             this.owner = getRPCProviderOwner(this.web3Auth?.provider)
                             connect(({chainId, connector: this}))
                         }
-                        getClient().storage?.setItem(`${this.loginProvider}-connecting`, false)
+                        getClient?.()?.storage?.setItem(`${this.loginProvider}-connecting`, false)
                     }
                 }
                 this.web3Auth.init(web3AuthInitOptions)
@@ -55,7 +57,7 @@ export abstract class SocialWalletConnector extends ZeroDevConnector<SocialWalle
                 provider = null
             }
             if (!provider) {
-                getClient().storage?.setItem(`${this.loginProvider}-connecting`, true)
+                getClient?.()?.storage?.setItem(`${this.loginProvider}-connecting`, true)
                 provider = await this.web3Auth?.connect()
             }
             this.owner = getRPCProviderOwner(provider)

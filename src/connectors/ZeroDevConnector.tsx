@@ -1,3 +1,5 @@
+'use-client';
+
 import { Connector } from "wagmi";
 import { Signer, getClient, normalizeChainId } from '@wagmi/core';
 import { ZeroDevProvider, ZeroDevSigner, getProjectsConfiguration, getZeroDevProvider } from '@zerodevapp/sdk'
@@ -85,7 +87,7 @@ export class ZeroDevConnector<Options = AccountParams> extends Connector<ZeroDev
         const provider = await this.getProvider()
         const account = await this.getAccount()
         const id = await this.getChainId()
-        if ((await this.getOptions()).shimDisconnect) getClient().storage?.setItem(this.shimDisconnectKey, true)
+        if ((await this.getOptions()).shimDisconnect) getClient?.()?.storage?.setItem(this.shimDisconnectKey, true)
 
         return {
             account,
@@ -111,7 +113,7 @@ export class ZeroDevConnector<Options = AccountParams> extends Connector<ZeroDev
             if (
                 !(await this.getOptions()).shimDisconnect ||
                 // If shim does not exist in storage, wallet is disconnected
-                !getClient().storage?.getItem(this.shimDisconnectKey)
+                !getClient?.()?.storage?.getItem(this.shimDisconnectKey)
             )
                 return false
             const account = await this.getAccount()
@@ -148,7 +150,7 @@ export class ZeroDevConnector<Options = AccountParams> extends Connector<ZeroDev
         if (options.disconnect) {
             await options.disconnect()
         }
-        if ((await this.getOptions()).shimDisconnect) getClient().storage?.removeItem(this.shimDisconnectKey)
+        if ((await this.getOptions()).shimDisconnect) getClient?.()?.storage?.removeItem(this.shimDisconnectKey)
     }
 
     async switchChain(chainId: number) {
@@ -184,7 +186,7 @@ export class ZeroDevConnector<Options = AccountParams> extends Connector<ZeroDev
         this.getOptions().then((options => {
             if (options.disconnect) {
                 options.disconnect()
-                if (options.shimDisconnect) getClient().storage?.removeItem(this.shimDisconnectKey)
+                if (options.shimDisconnect) getClient?.()?.storage?.removeItem(this.shimDisconnectKey)
                 this.provider = null
             }
         }))

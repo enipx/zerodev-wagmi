@@ -1,3 +1,5 @@
+'use-client';
+
 import { AccountParams, ZeroDevConnector } from "./ZeroDevConnector";
 import { ZeroDevWeb3Auth, type ZeroDevWeb3AuthOptions, type LoginProvider, type ZeroDevWeb3AuthInitOptions } from '@zerodevapp/web3auth'
 import { getRPCProviderOwner } from '@zerodevapp/sdk';
@@ -25,16 +27,16 @@ export abstract class AbstractWeb3AuthWalletConnector extends ZeroDevConnector<A
                     web3authOptions: options.web3authOptions
                 })
                 if (
-                    getClient().storage?.getItem(`${this.loginProvider}-connecting`)
+                    getClient?.()?.storage?.getItem(`${this.loginProvider}-connecting`)
                     ||
-                    (options.shimDisconnect && getClient().storage?.getItem(this.shimDisconnectKey))
+                    (options.shimDisconnect && getClient?.()?.storage?.getItem(this.shimDisconnectKey))
                 ) {
                     web3AuthInitOptions['onConnect'] = async (userInfo: any) => {
                         if (this.loginProvider === userInfo.typeOfLogin)  {
                             this.owner = getRPCProviderOwner(this.web3Auth?.provider)
                             connect(({chainId, connector: this}))
                         }
-                        getClient().storage?.setItem(`${this.loginProvider}-connecting`, false)
+                        getClient?.()?.storage?.setItem(`${this.loginProvider}-connecting`, false)
                     }
                 }
                 this.web3Auth.init(web3AuthInitOptions, this.loginProvider)
@@ -45,7 +47,7 @@ export abstract class AbstractWeb3AuthWalletConnector extends ZeroDevConnector<A
     async isAuthorized() {
         return false
         let provider = this.web3Auth?.provider
-        if (!provider && ((await this.getOptions()).shimDisconnect || getClient().storage?.getItem(this.shimDisconnectKey))) {
+        if (!provider && ((await this.getOptions()).shimDisconnect || getClient?.()?.storage?.getItem(this.shimDisconnectKey))) {
             provider = await this.web3Auth?.connect(this.loginProvider)
         }
         if (provider) {
@@ -62,10 +64,10 @@ export abstract class AbstractWeb3AuthWalletConnector extends ZeroDevConnector<A
                 provider = null
             }
             if (!provider) {
-                getClient().storage?.setItem(`${this.loginProvider}-connecting`, true)
+                getClient?.()?.storage?.setItem(`${this.loginProvider}-connecting`, true)
                 provider = await this.web3Auth?.connect(this.loginProvider)
                 setTimeout(() => {
-                    getClient().storage?.setItem(`${this.loginProvider}-connecting`, false)
+                    getClient?.()?.storage?.setItem(`${this.loginProvider}-connecting`, false)
                 }, 1000)
             }
             this.owner = getRPCProviderOwner(provider)

@@ -1,3 +1,5 @@
+'use-client';
+
 import * as React from 'react'
 import { MutationConfig } from '../types'
 import { useMutation } from 'wagmi'

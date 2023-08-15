@@ -1,3 +1,5 @@
+'use-client';
+
 import { Chain } from 'wagmi'
 import { AbstractWeb3AuthWalletConnector, AbstractWeb3AuthWalletConnectorOptions } from './AbstractWeb3AuthWalletConnector'
 import { LoginProvider, ZeroDevWeb3Auth } from '@zerodevapp/web3auth'
@@ -27,10 +29,10 @@ export class JWTWalletConnector extends AbstractWeb3AuthWalletConnector {
                 provider = null
             }
             if (!provider) {
-                getClient().storage?.setItem(`${this.loginProvider}-connecting`, true)
+                getClient?.()?.storage?.setItem(`${this.loginProvider}-connecting`, true)
                 provider = await this.web3Auth?.connect(this.loginProvider, {jwt: this.jwt})
                 setTimeout(() => {
-                    getClient().storage?.setItem(`${this.loginProvider}-connecting`, false)
+                    getClient?.()?.storage?.setItem(`${this.loginProvider}-connecting`, false)
                 }, 1000)
             }
             this.owner = getRPCProviderOwner(provider)

@@ -1,3 +1,5 @@
+'use-client';
+
 import { ConnectorNotFoundError, fetchSigner } from '@wagmi/core';
 import { ZeroDevSigner } from '@zerodevapp/sdk';
 import { ExecuteType } from '@zerodevapp/sdk/dist/src/BaseAccountAPI';

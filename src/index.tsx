@@ -1,3 +1,5 @@
+'use-client';
+
 export { usePrepareContractBatchWrite } from './hooks/usePrepareContractBatchWrite';
 export { useBatchSendTransaction } from './hooks/useBatchSendTransaction';
 export { usePrepareBatchSendTransaction } from './hooks/usePrepareBatchSendTransaction';

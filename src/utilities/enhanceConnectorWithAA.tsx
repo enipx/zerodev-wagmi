@@ -1,3 +1,5 @@
+'use-client';
+
 import { Connector, Address } from 'wagmi';
 import { getZeroDevProvider, getRPCProviderOwner, ZeroDevProvider} from '@zerodevapp/sdk';
 import { AccountParams } from '../connectors/ZeroDevConnector';

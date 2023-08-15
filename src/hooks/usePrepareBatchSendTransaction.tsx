@@ -1,3 +1,5 @@
+'use-client';
+
 import type {
     FetchSignerResult,
 } from '@wagmi/core'

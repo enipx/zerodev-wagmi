@@ -1,3 +1,5 @@
+'use-client';
+
 import { AbstractWeb3AuthWalletConnector } from './AbstractWeb3AuthWalletConnector'
 import { LoginProvider } from '@zerodevapp/web3auth'
 

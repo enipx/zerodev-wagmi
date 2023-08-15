@@ -1,3 +1,5 @@
+'use-client';
+
 import { Contract } from "ethers";
 import { useMemo } from "react";
 import { useSigner } from "wagmi";

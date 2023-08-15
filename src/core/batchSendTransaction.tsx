@@ -1,3 +1,5 @@
+'use-client';
+
 import type { Address } from 'abitype'
 import type { providers } from 'ethers'
 import { ExecuteType } from '@zerodevapp/sdk/dist/src/BaseAccountAPI'

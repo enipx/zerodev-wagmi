@@ -1,6 +1,7 @@
 {
-  "name": "@zerodevapp/wagmi",
-  "version": "3.2.2",
+  "name": "@enipx/zerodevapp-wagmi",
+  "version": "1.0.0",
+  "description": "Zerodev Wagmi with NextJS Support",
   "main": "dist/index.js",
   "files": [
     "dist",
@@ -52,6 +53,5 @@
     "tsup": "6.4.0",
     "typescript": "^5.0.4"
   },
-  "types": "./dist/index.d.ts",
-  "description": ""
+  "types": "./dist/index.d.ts"
 }

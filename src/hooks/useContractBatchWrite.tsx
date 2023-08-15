@@ -1,3 +1,5 @@
+'use-client';
+
 import { useBatchSendTransaction } from "./useBatchSendTransaction";
 
 export const useContractBatchWrite = (config: Parameters<typeof useBatchSendTransaction>[0]) => {
